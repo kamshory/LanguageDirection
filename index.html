@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Check Direction</title>
+</head>
+
+<body>
+<form name="edit" method="post" action="">
+  <textarea name="text" cols="70" rows="10" id="text" placeholder="Type RTL text here. ie: Arabic"></textarea>
+</form>
+<script type="text/javascript">
+function isRTL(s){           
+    var ltrChars    = 'A-Za-z\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u02B8\u0300-\u0590\u0800-\u1FFF'+'\u2C00-\uFB1C\uFDFE-\uFE6F\uFEFD-\uFFFF',
+        rtlChars    = '\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC';
+	var ltrDirCheck = new RegExp('['+ltrChars+']');
+	var rtlDirCheck = new RegExp('['+rtlChars+']');
+	var ltr = ltrDirCheck.test(s);
+	var rtl = rtlDirCheck.test(s);
+	if(rtl && !ltr)
+	return true;
+	return false;
+};
+function changeStyle(e)
+{
+	var elm = e.target;
+	var str = elm.value;
+	if(isRTL(str))
+	{
+		elm.style.direction = 'rtl';
+	}
+	else
+	{
+		elm.style.direction = 'ltr';
+	}
+}
+document.getElementById('text').addEventListener('change', function(e){
+	changeStyle(e);
+});
+document.getElementById('text').addEventListener('keyup', function(e){
+	changeStyle(e);
+});
+document.getElementById('text').addEventListener('keydown', function(e){
+	changeStyle(e);
+});
+</script>
+</body>
+</html>
